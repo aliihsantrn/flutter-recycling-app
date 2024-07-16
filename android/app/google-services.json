@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "178799390376",
+    "project_id": "oua-bootcamp-ed0ec",
+    "storage_bucket": "oua-bootcamp-ed0ec.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178799390376:android:42182525326308d9d9dc9d",
+        "android_client_info": {
+          "package_name": "com.example.flutter_auth"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDEXRDRflTrVb1fNiLUooCrBkJzjcXsUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:178799390376:android:ad5e5a7a3859a6b9d9dc9d",
+        "android_client_info": {
+          "package_name": "com.example.flutter_authentication"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDEXRDRflTrVb1fNiLUooCrBkJzjcXsUA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
