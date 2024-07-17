@@ -1,4 +1,6 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/pages/auth/home_page.dart';
 
 class SignUpPage extends StatefulWidget {
 
@@ -8,8 +10,9 @@ class SignUpPage extends StatefulWidget {
 
 class _SignUpPageState extends State<SignUpPage> {
 
-  late String email, password;
+  late String email, password, confirmPassword;
   final formKey = GlobalKey<FormState>();
+  final firebaseAuth = FirebaseAuth.instance;
 
   @override
   Widget build(BuildContext context) {
@@ -69,11 +72,30 @@ class _SignUpPageState extends State<SignUpPage> {
 
   ElevatedButton customElevatedButton(String text,) {
     return ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
               if (formKey.currentState!.validate()) {
                 formKey.currentState!.save();
-              } else {
-                
+                try {
+                  var userResult = await firebaseAuth.createUserWithEmailAndPassword(
+                    email: email, password: password
+                  );
+                  
+                  formKey.currentState!.reset();
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => HomePage(
+                        message: "Sign Up is Successfuly",
+                        email: email,
+                        password: password,
+                      ),
+                    ),
+                  );
+                  print(userResult.user!.uid);
+                  
+                } catch (e) {
+                  print(e.toString());
+                }
               }
             }, 
             child: Text(text, style: const TextStyle(color: Colors.blue),),
@@ -127,12 +149,9 @@ class _SignUpPageState extends State<SignUpPage> {
         if(value!.isEmpty){
           return "Please enter confirm password";
         }
-        if (value != password) {
-          return "Passwords don't match";
-        }
       },
       onSaved: (value) {
-        password = value!;
+        confirmPassword = value!;
       },
       obscureText: true,
       decoration: textInputDecoration("Confirm Password"),
