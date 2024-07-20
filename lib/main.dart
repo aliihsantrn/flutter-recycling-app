@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       routes: {
-        "/signUPage" : (context) => SignUpPage(),
+        "/signUpPage" : (context) => SignUpPage(),
         "/signInPage" : (context) => SignInPage(),
       },
       theme: ThemeData(

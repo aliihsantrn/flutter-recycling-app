@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/pages/auth/home_page.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignInPage extends StatefulWidget {
-  const SignInPage({super.key});
 
 
   @override
@@ -19,6 +19,7 @@ class _SignInPageState extends State<SignInPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 23, 89, 74),
       body: Container(
         alignment: Alignment.center,
         child: Form(
@@ -26,8 +27,8 @@ class _SignInPageState extends State<SignInPage> {
           child: Stack(
             children: [
               Positioned(
-                top: 20,
-                left: 20,
+                top: 24,
+                left: 8,
                 child: customIconButton(context),
               ),
               Center(
@@ -37,13 +38,13 @@ class _SignInPageState extends State<SignInPage> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       customSizedBox(200),
-                      pageTitle("WELCOME, \n SIGN IN"),
-                      customSizedBox(20),
+                      pageTitle("Tekrar Hoşgeldiniz \n      Giriş Yapınız"),
+                      customSizedBox(50),
                       emailTextField(),
                       customSizedBox(20),
                       passwordTextField(),
-                      customSizedBox(30),
-                      customElevatedButton("Sign in"),
+                      customSizedBox(50),
+                      customElevatedButton("Giriş Yap"),
                     ],
                   )
                 )
@@ -61,6 +62,8 @@ class _SignInPageState extends State<SignInPage> {
               Navigator.pushNamed(context, "/signUpPage");
             },
              icon: const Icon(Icons.arrow_back),
+             color: const Color.fromARGB(255, 211, 209, 78),
+             iconSize: 36,
              alignment: Alignment.topLeft,
           );
   }
@@ -107,18 +110,26 @@ class _SignInPageState extends State<SignInPage> {
                   print(e.toString());
                 }
               }
-            }, 
-            child: Text(text, style: const TextStyle(color:  Colors.blue),),
+            },
+            style: ElevatedButton.styleFrom(
+              backgroundColor: const Color.fromARGB(255, 211, 209, 78), // Arka plan rengi
+              shadowColor: Colors.white, // Yazı rengi
+            ),
+            child: Text(
+              text,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
             );
   }
 
   Text pageTitle(String title) {
     return Text(
             title,
-            style: const TextStyle(
-              fontSize: 30,
-               fontWeight: FontWeight.bold
-               ),
+            style: GoogleFonts.oswald(
+              color: Colors.white,
+              fontSize: 24,
+              fontWeight: FontWeight.w400
+            )
           );
   }
 
@@ -126,44 +137,50 @@ class _SignInPageState extends State<SignInPage> {
 
   TextFormField emailTextField() {
     return TextFormField(
+      decoration: textInputDecoration("E-posta"),
+      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       validator: (value) {
         if(value!.isEmpty){
-          return "Please enter email address";
+          return "Lütfen e-posta giriniz";
         }
       },
       onSaved: (value) {
         email = value!;
       },
-      decoration: textInputDecoration("Email"),
     );
   }
 
   TextFormField passwordTextField() {
     return TextFormField(
+      obscureText: true,
+      decoration: textInputDecoration("Şifre"),
+      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       validator: (value) {
         if(value!.isEmpty){
-          return "Please enter email address";
+          return "Lütfen şifre giriniz";
         }
       },
       onSaved: (value) {
         password = value!;
       },
-      obscureText: true,
-      decoration: textInputDecoration("Password"),
     );
   }
 
   InputDecoration textInputDecoration(String hint) {
     return InputDecoration(
       hintText: hint,
+      hintStyle: const TextStyle(
+        color: Colors.white,
+        fontWeight: FontWeight.w300
+        ),
       enabledBorder: const UnderlineInputBorder(
         borderSide: BorderSide(
-        color: Colors.grey
+        color: Colors.white
         )
       ),
       focusedBorder: const UnderlineInputBorder(
         borderSide: BorderSide(
-        color: Colors.grey
+        color: Colors.white
         )
       )
     );
