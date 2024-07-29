@@ -49,33 +49,53 @@ class _HomePageState extends State<HomePage> {
               child: customTittle("Yakınınızdaki Geri Dönüşüm Noktaları"),
             ),
             customSizedBox(16),
-            FutureBuilder(
-              future: getData(), 
-              builder: (context, snapshot) {
-                if(snapshot.hasData){
-                  var dataList = snapshot.data;
-
-                  return ListView.builder(
-                    itemCount: dataList!.length,
-                    itemBuilder: (context, index) {
-                      var data = dataList[index];
-                      
-                      return Card(
-                        child: Row(
-                          children: [
-                            Image.asset()
-                          ],
-                        ),
-                      )
-                    },
-                  )
-                } else {
-                  return const Center(child: Text("Gösterilecek bir şey yok"));
-                }
-              },
-            )
+            recyclingCentersListView()
           ],
         )
+    );
+  }
+
+  FutureBuilder<List<RecyclingCenters>> recyclingCentersListView() {
+    return FutureBuilder(
+      future: getData(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          var dataList = snapshot.data;
+
+          return ListView.builder(
+            itemCount: dataList!.length,
+            itemBuilder: (context, index) {
+              var data = dataList[index];
+
+              return Card(
+                child: Row(
+                  children: [
+                    Image.asset('assets/image/${data.imageUrl}'),
+                    customSizedBox(8),
+                    Column(children: [
+                      Text(
+                        data.name,
+                        style: customTextStyle(
+                            FontWeight.normal, 20, Colors.black),
+                      ),
+                      customSizedBox(8),
+                      Text(
+                        data.material,
+                        style: customTextStyle(
+                            FontWeight.normal, 15, Colors.black),
+                      ),
+
+                      //Uzaklığı hesapla
+                    ]),
+                  ],
+                ),
+              );
+            },
+          );
+        } else {
+          return const Center(child: Text("Gösterilecek bir şey yok"));
+        }
+      },
     );
   }
 
