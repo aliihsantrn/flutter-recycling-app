@@ -57,6 +57,7 @@ class _HomePageState extends State<HomePage> {
 
   FutureBuilder<List<RecyclingCenters>> recyclingCentersListView() {
     return FutureBuilder(
+      initialData: [],
       future: getData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
@@ -71,14 +72,14 @@ class _HomePageState extends State<HomePage> {
                 child: Row(
                   children: [
                     Image.asset('assets/image/${data.imageUrl}'),
-                    customSizedBox(8),
+                    
                     Column(children: [
                       Text(
                         data.name,
                         style: customTextStyle(
                             FontWeight.normal, 20, Colors.black),
                       ),
-                      customSizedBox(8),
+                      
                       Text(
                         data.material,
                         style: customTextStyle(
