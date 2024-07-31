@@ -3,37 +3,37 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class customAppbar extends StatelessWidget implements PreferredSizeWidget {
-  const customAppbar({
+  customAppbar({
     super.key,
-    required this.coin,
+    this.backButtonVisibility = false,
   });
 
-  final int coin;
-
+  bool backButtonVisibility;
   @override
   Widget build(BuildContext context) {
     return AppBar(
       clipBehavior: Clip.none,
       backgroundColor: const Color.fromARGB(255, 23, 89, 74),
+      automaticallyImplyLeading: false,
       toolbarHeight: 136,
       actions: [],
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(bottom: Radius.circular(32.0)),
       ),
-      title: Container(
-        child: Stack(
+      title: Stack(
           children: [
             Align(
-              alignment: Alignment.bottomRight,
+              alignment: Alignment.bottomLeft,
               child: Padding(
-                padding: const EdgeInsets.only(right: 8.0, top: 80.0),
-                child: OutlinedButton.icon(
-                  icon: SvgPicture.asset('assets/icons/coins.svg'),
-                  onPressed: () {},
-                  label: Text(
-                    "$coin",
-                    style: const TextStyle(color: Color.fromRGBO(217, 217, 217, 1)),
-                  ),
+                padding: const EdgeInsets.only(left: 8.0, top: 80.0),
+                child: Visibility(
+                  visible: backButtonVisibility,
+                  child: IconButton(
+                     onPressed: () {
+                      Navigator.pop(context); // Bir önceki sayfaya dönmek için
+                     },
+                     icon: SvgPicture.asset("assets/icons/back_arrow.svg")
+                     ),
                 ),
               ),
             ),
@@ -55,7 +55,6 @@ class customAppbar extends StatelessWidget implements PreferredSizeWidget {
               ),
             ),
         ]),
-      ),
     );
   }
 

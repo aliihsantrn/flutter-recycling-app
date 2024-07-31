@@ -12,7 +12,7 @@ class _EducationPageState extends State<EducationPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: customAppbar(coin: 200),
+      appBar: customAppbar(),
       body: Center(
         child: Text("Education Page"),
       ),

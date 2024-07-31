@@ -69,9 +69,17 @@ flutter:
     - assets/icons/sort_descending.svg
     - assets/icons/cursor.svg
     - assets/icons/education.svg
+    - assets/icons/back_arrow.svg
+    - assets/icons/arrow_cursor.svg
     - assets/image/plastik.png
     - assets/image/metal.png
     - assets/image/kagit.png
+    - assets/image/kategori_kagit.png
+    - assets/image/kategori_metal.png
+    - assets/image/kategori_cam.png
+    - assets/image/kategori_organik.png
+    - assets/image/kategori_pil.png
+    - assets/image/kategori_plastik.png
 
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
