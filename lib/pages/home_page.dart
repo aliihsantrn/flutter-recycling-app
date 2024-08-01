@@ -3,7 +3,9 @@ import 'package:flutter_auth/entity/recycling_centers.dart';
 import 'package:flutter_auth/pages/bottomSheet_page.dart';
 import 'package:flutter_auth/utils/customAppbar.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class HomePage extends StatefulWidget {
   late String email;
@@ -20,15 +22,66 @@ class _HomePageState extends State<HomePage> {
   int coin = 100;
   bool distance = false;
 
+  double latitude = 0.0;
+  double longitude = 0.0;
+
+  Future<void> getLocation() async {
+    var currentLocation = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.lowest);
+    print("Enlem: ${latitude}");
+    print("Enlem: ${longitude}");
+
+    setState(() {
+      latitude = currentLocation.latitude;
+      longitude = currentLocation.longitude;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    
+  }
+
+  Future<void> _requestPermission() async {
+    var status = await Permission.location.status;
+    if (status.isDenied) {
+      if (await Permission.location.request().isGranted) {
+        // İzin verildi, konumu al
+        getLocation();
+      } else {
+        // İzin reddedildi
+        print("Location permission denied");
+      }
+    } else if (status.isGranted) {
+      // İzin zaten verildi, konumu al
+        getLocation();
+    }
+  }
+
   Future<List<RecyclingCenters>> getData() async {
     var dataList = <RecyclingCenters>[];
 
-    var data1 = RecyclingCenters("Arden Kağıtçılık", "Kağıt",
-        "36.93598805414816, 34.9167005334081", "kagit.png");
-    var data2 = RecyclingCenters("Aras Geri Dönüşüm", "Plastik",
-        "36.93598805414816, 34.9167005334081", "plastik.png");
-    var data3 = RecyclingCenters("Yusuf Metal", "Metal",
-        "36.93598805414816, 34.9167005334081", "metal.png");
+    var data1 = RecyclingCenters(
+        "Arden Kağıtçılık",
+        "Kağıt",
+        "https://bit.ly/3WK4ZIN",
+        41.026906586685755,
+        28.67665506782087,
+        "kagit.png");
+    var data2 = RecyclingCenters(
+        "Aras Geri Dönüşüm",
+        "Plastik",
+        "https://bit.ly/3WtJP07",
+        40.03421810512673,
+        32.6159898407004,
+        "plastik.png");
+    var data3 = RecyclingCenters(
+        "Yusuf Metal",
+        "Metal",
+        "https://bit.ly/3WN9lyE",
+        36.83568364343708,
+        34.64469026866305,
+        "metal.png");
 
     dataList.add(data1);
     dataList.add(data2);
@@ -50,7 +103,7 @@ class _HomePageState extends State<HomePage> {
             customSizedBox(16),
             Padding(
               padding: const EdgeInsets.only(right: 64),
-              child: customTittle("Yakınınızdaki Geri Dönüşüm Noktaları"),
+              child: customTittle("Yakınınızdaki geri dönüşüm noktaları"),
             ),
             customSizedBox(16),
             recyclingCentersListView()
@@ -122,10 +175,15 @@ class _HomePageState extends State<HomePage> {
                           padding: const EdgeInsets.all(0),
                           child: GestureDetector(
                             onTap: () {
+                              var url = data.locationUrl;
+                              var title = data.name;
                               showModalBottomSheet(
                                 context: context,
                                 builder: (context) {
-                                   return BottomsheetPage();
+                                   return BottomsheetPage(
+                                      url: url,
+                                      title: title,
+                                   );
                                 },
                               );
                             },
@@ -167,11 +225,10 @@ class _HomePageState extends State<HomePage> {
       },
     );
   }
-
   Text customTittle(String text) {
     return Text(
       text,
-      style: customTextStyle(FontWeight.bold, 15, Colors.black),
+      style: customTextStyle(FontWeight.bold, 18, Colors.black),
     );
   }
 
@@ -226,7 +283,6 @@ class _HomePageState extends State<HomePage> {
   }
 
 }
-
 customTextStyle(FontWeight weight, double size, Color color) {
   return GoogleFonts.nunito(fontWeight: weight, fontSize: size, color: color);
 }

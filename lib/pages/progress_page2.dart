@@ -34,13 +34,28 @@ class _ProgressPageStep2State extends State<ProgressPageStep2> {
 Future<List<RecyclingCenters>> getData() async {
   var dataList = <RecyclingCenters>[];
 
-  var data1 = RecyclingCenters("Arden Kağıtçılık", "Kağıt",
-      "36.93598805414816, 34.9167005334081", "kagit.png");
-  var data2 = RecyclingCenters("Aras Geri Dönüşüm", "Plastik",
-      "36.93598805414816, 34.9167005334081", "plastik.png");
-  var data3 = RecyclingCenters("Yusuf Metal", "Metal",
-      "36.93598805414816, 34.9167005334081", "metal.png");
-
+  var data1 = RecyclingCenters(
+        "Arden Kağıtçılık",
+        "Kağıt",
+        "https://bit.ly/3WK4ZIN",
+        41.026906586685755,
+        28.67665506782087,
+        "kagit.png");
+    var data2 = RecyclingCenters(
+        "Aras Geri Dönüşüm",
+        "Plastik",
+        "https://bit.ly/3WtJP07",
+        40.03421810512673,
+        32.6159898407004,
+        "plastik.png");
+    var data3 = RecyclingCenters(
+        "Yusuf Metal",
+        "Metal",
+        "https://bit.ly/3WN9lyE",
+        36.83568364343708,
+        34.64469026866305,
+        "metal.png");
+        
   dataList.add(data1);
   dataList.add(data2);
   dataList.add(data3);
@@ -112,12 +127,17 @@ FutureBuilder<List<RecyclingCenters>> recyclingCentersListView() {
                         padding: const EdgeInsets.all(0),
                         child: GestureDetector(
                           onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              builder: (context) {
-                                return BottomsheetPage();
-                              },
-                            );
+                            var url = data.locationUrl;
+                            var title = data.name;
+                              showModalBottomSheet(
+                                context: context,
+                                builder: (context) {
+                                   return BottomsheetPage(
+                                      url: url,
+                                      title: title,
+                                   );
+                                },
+                              );
                           },
                           child: Container(
                               clipBehavior: Clip.antiAlias,

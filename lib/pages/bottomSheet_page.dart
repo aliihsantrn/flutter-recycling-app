@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_auth/pages/maps_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class BottomsheetPage extends StatelessWidget {
-  const BottomsheetPage({super.key});
+  final String url;
+  final String title;
+  const BottomsheetPage({super.key, required this.url, required this.title});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +25,7 @@ class BottomsheetPage extends StatelessWidget {
           customSizedBox(16),
           GestureDetector(
               onTap: () {
-                sendToGoogleMaps();
+                sendToGoogleMaps(context);
               },
               child: bottomSheetText("Google Haritalar ile aç")),
           customSizedBox(8),
@@ -36,7 +39,7 @@ class BottomsheetPage extends StatelessWidget {
           customSizedBox(8),
           GestureDetector(
             onTap: () {
-              sendToAppleMaps();
+              sendToAppleMaps(context);
             },
             child: bottomSheetText("Apple Haritalar ile aç"),
           ),
@@ -44,14 +47,32 @@ class BottomsheetPage extends StatelessWidget {
         ],
       ),
     );
+
+    
   }
 
-  void sendToGoogleMaps() {
-
+  void sendToGoogleMaps(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WebViewPage(
+          title: title, 
+          url: url
+        )
+      ),
+    );
   }
 
-  void sendToAppleMaps() {
-
+  void sendToAppleMaps(BuildContext context) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => WebViewPage(
+          title: title, 
+          url: url
+        )
+      ),
+    );
   }
 
 }

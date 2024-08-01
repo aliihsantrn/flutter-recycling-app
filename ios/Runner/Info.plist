@@ -45,5 +45,11 @@
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Your reason for using location here.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Your reason for using location here.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Lütfen konumunuza erişebilmemiz için izin veriniz.</string>
 </dict>
 </plist>
