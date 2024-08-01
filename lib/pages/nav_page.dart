@@ -33,10 +33,6 @@ class _NavPageState extends State<NavPage> {
             icon: Icon(Icons.recycling),
             label: "Dönüştür"
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.person),
-            label: "Profil"
-          ),
         ],
         type: BottomNavigationBarType.fixed,
         iconSize: 32,

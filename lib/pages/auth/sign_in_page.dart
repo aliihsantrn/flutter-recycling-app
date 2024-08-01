@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_auth/pages/home_page.dart';
+import 'package:flutter_auth/pages/nav_page.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SignInPage extends StatefulWidget {
@@ -98,11 +99,7 @@ class _SignInPageState extends State<SignInPage> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(
-                      builder: (context) => HomePage(
-                        message: "Sign In is Successfuly",
-                        email: email,
-                        password: password,
-                      ),
+                      builder: (context) => NavPage()
                     ),
                   );
                   
